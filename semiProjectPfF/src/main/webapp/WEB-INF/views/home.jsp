@@ -9,5 +9,7 @@
 <c:set value="${ pageContext.servletContext.contextPath }" var="contextPath" scope="application"/>
 	
 	<a href="${ contextPath }/loginView.me"><button>로그인</button></a>
+	<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/>
+<%@ include file="common/footer.jsp" %>
 </body>
 </html>
