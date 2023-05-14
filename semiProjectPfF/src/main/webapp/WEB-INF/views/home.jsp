@@ -8,7 +8,12 @@
 <body>
 <c:set value="${ pageContext.servletContext.contextPath }" var="contextPath" scope="application"/>
 	
-	<a href="${ contextPath }/loginView.me"><button>로그인</button></a>
+	<c:if test="${ loginUser eq null }" >
+		<a href="${ contextPath }/loginView.me"><button>로그인</button></a>
+	</c:if>
+	<c:if test="${ loginUser != null }">
+		<a href="${ contextPath }/logout.me"><button>로그아웃</button></a>
+	</c:if>
 	<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/>
 <%@ include file="common/footer.jsp" %>
 </body>

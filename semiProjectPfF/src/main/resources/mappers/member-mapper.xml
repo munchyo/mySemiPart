@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
+	<select id="login" resultMap="memberResultSet">
+		select * from member where MEMBER_ID = #{ memberId } and MEMBER_PWD = #{ memberPwd } and member_status = 'Y'
+	</select>
+	
+	<resultMap type="Member" id="memberResultSet">
+		<id column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickName"/>
+		<result column="MEMBER_AGE" property="memberAge"/>
+		<result column="MEMBER_GENDER" property="memberGender"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_HOMEPHONE" property="memberHomePhone"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MEMBER_POINT" property="point"/>
+		<result column="PAY_AMOUNT" property="payAmount"/>
+		<result column="EVENT_AGREE" property="eventAgree"/>
+		<result column="MEMBER_GRADE" property="grade"/>
+		<result column="IS_ADMIN" property="admin"/>
+	</resultMap>
+	
+	<insert id="enroll">
+		insert into member values(MEM_SEQ.NEXTVAL, #{memberId}, #{memberPwd}, #{memberName}, #{memberNickName}, #{memberAge}, #{memberGender}, #{memberEmail}, #{memberHomePhone}, #{memberPhone}, #{memberAddress}, sysdate, default, default, default, #{eventAgree}, default, default)	
+	</insert>
+
 </mapper>

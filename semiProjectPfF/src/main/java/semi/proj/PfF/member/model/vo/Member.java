@@ -12,6 +12,7 @@ public class Member {
 	private String memberId;
 	private String memberPwd;
 	private String memberName;
+	private String memberNickName;
 	private Date memberAge;
 	private char memberGender;
 	private String memberEmail;
@@ -21,19 +22,20 @@ public class Member {
 	private Date enrollDate;
 	private int point;
 	private int payAmount;
-	private String eventCheck;
+	private String eventAgree;
 	private String grade;
 	private char admin;
 	
 	public Member() {}
 
-	public Member(String memberId, String memberPwd, String memberName, Date memberAge, char memberGender,
+	public Member(String memberId, String memberPwd, String memberName, String memberNickName, Date memberAge, char memberGender,
 			String memberEmail, String memberHomePhone, String memberPhone, String memberAddress, Date enrollDate,
-			int point, int payAmount, String eventCheck, String grade, char admin) {
+			int point, int payAmount, String eventAgree, String grade, char admin) {
 		super();
 		this.memberId = memberId;
 		this.memberPwd = memberPwd;
 		this.memberName = memberName;
+		this.memberNickName = memberNickName;
 		this.memberAge = memberAge;
 		this.memberGender = memberGender;
 		this.memberEmail = memberEmail;
@@ -43,7 +45,7 @@ public class Member {
 		this.enrollDate = enrollDate;
 		this.point = point;
 		this.payAmount = payAmount;
-		this.eventCheck = eventCheck;
+		this.eventAgree = eventAgree;
 		this.grade = grade;
 		this.admin = admin;
 	}
@@ -70,6 +72,14 @@ public class Member {
 
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
+	}
+	
+	public String getMemberNickName() {
+		return memberNickName;
+	}
+
+	public void setMemberNickName(String memberNickName) {
+		this.memberNickName = memberNickName;
 	}
 
 	public Date getMemberAge() {
@@ -144,12 +154,12 @@ public class Member {
 		this.payAmount = payAmount;
 	}
 
-	public String getEventCheck() {
-		return eventCheck;
+	public String geteventAgree() {
+		return eventAgree;
 	}
 
-	public void setEventCheck(String eventCheck) {
-		this.eventCheck = eventCheck;
+	public void seteventAgree(String eventAgree) {
+		this.eventAgree = eventAgree;
 	}
 
 	public String getGrade() {
@@ -171,10 +181,11 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberName=" + memberName
-				+ ", memberAge=" + memberAge + ", memberGender=" + memberGender + ", memberEmail=" + memberEmail
-				+ ", memberHomePhone=" + memberHomePhone + ", memberPhone=" + memberPhone + ", memberAddress="
-				+ memberAddress + ", enrollDate=" + enrollDate + ", point=" + point + ", payAmount=" + payAmount
-				+ ", eventCheck=" + eventCheck + ", grade=" + grade + ", admin=" + admin + "]";
+				+ ", memberNickName=" + memberNickName + ", memberAge=" + memberAge + ", memberGender=" + memberGender
+				+ ", memberEmail=" + memberEmail + ", memberHomePhone=" + memberHomePhone + ", memberPhone="
+				+ memberPhone + ", memberAddress=" + memberAddress + ", enrollDate=" + enrollDate + ", point=" + point
+				+ ", payAmount=" + payAmount + ", eventAgree=" + eventAgree + ", grade=" + grade + ", admin=" + admin
+				+ "]";
 	}
 	
 }

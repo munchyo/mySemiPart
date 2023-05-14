@@ -66,7 +66,7 @@
 				<li class="checkBox check03">
 					<ul class="clearfix">
 						<li><label for="ckSel" style="float: left;">이벤트 등 프로모션 알림 메일 수신(선택)</label></li>
-						<li class="checkBtn"><input type="checkbox" name="eventAgree" id="ckSel" onclick="checkCkSel()" value="check">
+						<li class="checkBtn"><input type="checkbox" name="eventAgree" id="ckSel" onclick="checkCkSel()" value="Y">
 						</li>
 					</ul> <textarea name="" id="" disabled="disabled" style="resize:none;">3여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.여러분을 환영합니다.
 						 </textarea><br><br>
