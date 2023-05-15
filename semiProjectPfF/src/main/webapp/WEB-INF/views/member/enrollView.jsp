@@ -89,14 +89,14 @@
 </head>
 <body>
 	<div class="box">
-		<form action="${ contextPath }/enroll.me" method="post">
+		<form action="${ contextPath }/enroll.me" method="post" id="form">
 			<input type="hidden" name="eventAgree" value="${ eventAgree }">
 			<a href="${ contextPath }"><img alt="로고" src="${ contextPath }/resources/image/logo1.png"></a><br><br><br>
 		
 			<div class="input-container">
 				<input type="text" name="memberId" id="id" required="required"/>
 				<label for="id">회원 ID&nbsp;<b>*</b></label>	<br>
-				<span id="idCheck" style="float: left; margin-left: 15%; font-size: 12px">아이디 영문숫자 조합 최소 4자</span>
+				<span id="idCheck" style="float: left; margin-left: 15%; font-size: 12px; color: #555;">아이디 영문숫자 조합 4-10자</span>
 			</div>
 			
 			<div class="input-container">
@@ -112,9 +112,9 @@
 			</div><br/>
 			
 			<span style="color:#555; margin-right: 50%;">기본 배송지<span style="color:#e74c3c;">&nbsp;*</span></span><br/>
-			<input type="text" name="postCode" id="postCode" placeholder="우편번호" readonly="readonly" onclick="kakaoPostCode()" >
+			<input type="text" name="postCode" id="postCode" placeholder="우편번호" readonly="readonly" onclick="kakaoPostCode()" required="required">
 			<input type="button" id="addrBtn" value="우편번호 찾기" onclick="kakaoPostCode()"><br/>
-			<input type="text" name="address" id="address" placeholder="기본 주소" readonly="readonly" onclick="kakaoPostCode()" ><br/>
+			<input type="text" name="address" id="address" placeholder="기본 주소" readonly="readonly" onclick="kakaoPostCode()" required="required"><br/>
 			<input type="text" name="detailAddress" id="detailAddress" placeholder="상세 주소" /><br/>
 			<input type="text" name="refAddress" id="refAddress" placeholder="참고 주소" readonly="readonly" onclick="kakaoPostCode()"/>
 			
@@ -252,7 +252,7 @@
 				<option value="0508">0508</option>
 			</select>
 			-
-			<input type="tel" name="homePhone2" id="homePhone2" maxlength="4">
+			<input type="tel" name="homePhone2" id="homePhone2" maxlength="4" >
 			-
 			<input type="tel" name="homePhone3" id="homePhone3" maxlength="4">
 			</div><br>
@@ -287,7 +287,7 @@
 			<br/><br/><br/>
 			
 			<div class="input-container">
-				<input type="date" name="memberAge" id="age" autocomplete="off" required="required" />
+				<input type="date" name="memberAge" id="age" autocomplete="off" required="required" style="color:white;"/>
 				<label for="age">생년월일(ex-2023-05-05)&nbsp;<b>*</b></label>	
 			</div>
 		
@@ -306,12 +306,17 @@
 	const nickName = document.getElementById('nickName');
 	const cNickName = document.getElementById('nickNameCheck');
 	
+	const submit = document.getElementById('btn');
+	
+	const form = document.getElementById('form');
+	
+	// 아이디 중복, 글자수 체크
 	id.addEventListener('change', function(){
 		if(this.value.trim()==""){
-			cId.innerText = "아이디 영문숫자 조합 최소 4자";
+			cId.innerText = "아이디 영문숫자 조합 4-15자";
 			cId.style.color = '#555';
-		} else if(this.value.length < 4){
-			cId.innerText = "4자 이상 입력해주세요.";
+		} else if(this.value.trim().length < 4 || this.value.trim().length > 10){
+			cId.innerText = "아이디는 영문숫자 조합 4-15자 제한입니다.";
 			cId.style.color = 'red';
 		} else{
 			$.ajax({
@@ -323,7 +328,7 @@
 						cId.innerText = "아주 멋진 아이디네요!";
 					} else if(data == 'no'){
 						cId.style.color = 'red';
-						cId.innerText = "중복된 닉네임입니다.";
+						cId.innerText = "중복된 아이디입니다.";
 					}
 				},
 				error: data =>{
@@ -333,6 +338,19 @@
 		}
 	})
 	
+	// 아이디 한글, 특문 입력시 섭밋막기
+	const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gim;
+	form.addEventListener('submit', function(e){
+		if(korean.test(id.value.trim()) || reg.test(id.value.trim())){
+			e.preventDefault();
+			alert('아이디는 영문, 숫자만 입력 가능합니다.');
+			id.focus();
+			id.select();
+		}
+	});
+	
+	// pwd 유효성 알려만주기
 	const checkPwd = ()=>{
 		if(pwd2.value.trim().length==0 || pwd2.value.trim()==""){
 			cPwd.innerText = "";
@@ -345,13 +363,23 @@
 		}
 	}
 	
+	// pwd submit막기
+	form.addEventListener('submit', function(e){
+		if(pwd.value != pwd2.value){
+			alert('비밀번호 확인이 일치하지 않습니다.');
+			e.preventDefault();
+			pwd.focus();
+			pwd.select();
+		}
+	});
+	
 // 	age에 있는 플레이스홀더같은거 안보이는척하기
 	const age = document.getElementById('age');
 	window.onload = ()=>{
 		age.style.color = 'white';
 		
 		age.addEventListener('change', function(){
-			if(this.value == null){
+			if(this.value == "" || this.value == null){
 				this.style.color = 'white';
 			} else{
 				this.style.color = '#555';
@@ -362,13 +390,14 @@
 	
 	window.onload = ()=>{
 		
-		nickName.addEventListener('change', function(){
+		//닉네임 중복, 글자제한
+		nickName.addEventListener('change', function(e){
 			if(this.value.trim() == ""){
 				cNickName.style.color = '#555';
 				cNickName.innerText = "닉네임 2-10글자";
 			} else if(this.value.trim().length > 10 || this.value.trim().length < 2) {
 				cNickName.style.color = 'red';
-				cNickName.innerText = "닉네임 길이가 유효하지 않습니다. (2-10글자)";
+				cNickName.innerText = "닉네임 길이가 유효하지 않습니다. (2-10자)";
 			} else {
 				$.ajax({
 					url: '${contextPath}/checkNickName.me',
@@ -386,6 +415,31 @@
 						console.log(data);
 					}
 				})
+			}
+		});
+		
+		// 아이디, 닉네임 섭밋막기
+		form.addEventListener('submit', function(e){
+			if(cNickName.innerText == "중복된 닉네임입니다."){
+				alert('중복된 닉네임은 사용할 수 없습니다.');
+				e.preventDefault();
+				nickName.focus();
+				nickName.select();
+			} else if(cId.innerText == "중복된 아이디입니다."){
+				alert('중복된 아이디는 사용할 수 없습니다.');
+				e.preventDefault();
+				id.focus();
+				id.select();
+			} else if(id.value.trim().length < 4 || id.value.trim().length > 15){
+				alert('아이디 길이가 유효하지 않습니다. (4-15자)');
+				e.preventDefault();
+				id.focus();
+				id.select();
+			} else if(nickName.value.trim().length > 10 || nickName.value.trim().length < 2){
+				alert('닉네임 길이가 유효하지 않습니다. (2-10자)');
+				e.preventDefault();
+				id.focus();
+				id.select();
 			}
 		});
 		
