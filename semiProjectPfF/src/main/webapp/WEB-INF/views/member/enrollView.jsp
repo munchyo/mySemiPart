@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>PfF 회원가입</title>
 <link href="https://fonts.googleapis.com/earlyaccess/notosanskr.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <style>
 	* {font-family:'Noto Sans KR', sans-serif;}
 	
@@ -93,9 +94,9 @@
 			<a href="${ contextPath }"><img alt="로고" src="${ contextPath }/resources/image/logo1.png"></a><br><br><br>
 		
 			<div class="input-container">
-				<input type="text" name="memberId" id="id" required="required" onkeyup="checkId()"/>
+				<input type="text" name="memberId" id="id" required="required"/>
 				<label for="id">회원 ID&nbsp;<b>*</b></label>	<br>
-				<span id="idCheck" style="float: left; margin-left: 15%; font-size: 12px"></span>
+				<span id="idCheck" style="float: left; margin-left: 15%; font-size: 12px">아이디 영문숫자 조합 최소 4자</span>
 			</div>
 			
 			<div class="input-container">
@@ -208,9 +209,12 @@
 			</div>
 			
 			<div class="input-container">
-				<input type="text" name="memberNickName" id="nickName"/>
-				<label for="nickName">닉네임&nbsp;<b></b></label>		
+				<input type="text" name="memberNickName" id="nickName" required="required"/>
+				<label for="nickName">닉네임&nbsp;<b>*</b></label><br>
+				<span id="nickNameCheck" style="float: left; margin-left: 15%; font-size: 12px"></span>	
 			</div>
+			
+			<br>
 			
 			<span style="color:#555; margin-right: 55%;">일반전화</span><br/>
 			<div class="homePhone">
@@ -299,17 +303,35 @@
 	const pwd2 = document.getElementById('pwd2');
 	const cPwd = document.getElementById('pwdCheck');
 	
-	const checkId = ()=>{
-		if(id.value.trim().length==0 || id.value.trim()==""){
-			cId.innerText = "";
-		} else if (id.value=='user01'){
-			cId.innerText = "이미 존재하는 아이디입니다.";
+	const nickName = document.getElementById('nickName');
+	const cNickName = document.getElementById('nickNameCheck');
+	
+	id.addEventListener('change', function(){
+		if(this.value.trim()==""){
+			cId.innerText = "아이디 영문숫자 조합 최소 4자";
+			cId.style.color = '#555';
+		} else if(this.value.length < 4){
+			cId.innerText = "4자 이상 입력해주세요.";
 			cId.style.color = 'red';
-		} else if (id.value!='user01'){
-			cId.innerText = "사용가능한 아이디입니다.";
-			cId.style.color = 'green';
+		} else{
+			$.ajax({
+				url: '${contextPath}/checkId.me',
+				data: {id:this.value.trim()},
+				success: data =>{
+					if(data == 'yes'){
+						cId.style.color = 'green';
+						cId.innerText = "아주 멋진 아이디네요!";
+					} else if(data == 'no'){
+						cId.style.color = 'red';
+						cId.innerText = "중복된 닉네임입니다.";
+					}
+				},
+				error: data =>{
+					console.log(data);
+				}
+			})
 		}
-	}
+	})
 	
 	const checkPwd = ()=>{
 		if(pwd2.value.trim().length==0 || pwd2.value.trim()==""){
@@ -337,6 +359,39 @@
 		})
 		
 	}
+	
+	window.onload = ()=>{
+		
+		nickName.addEventListener('change', function(){
+			if(this.value.trim() == ""){
+				cNickName.style.color = '#555';
+				cNickName.innerText = "닉네임 2-10글자";
+			} else if(this.value.trim().length > 10 || this.value.trim().length < 2) {
+				cNickName.style.color = 'red';
+				cNickName.innerText = "닉네임 길이가 유효하지 않습니다. (2-10글자)";
+			} else {
+				$.ajax({
+					url: '${contextPath}/checkNickName.me',
+					data: {nickname:this.value.trim()},
+					success: data =>{
+						if(data == 'yes'){
+							cNickName.style.color = 'green';
+							cNickName.innerText = "아주 멋진 닉네임이네요!";
+						} else if(data == 'no'){
+							cNickName.style.color = 'red';
+							cNickName.innerText = "중복된 닉네임입니다.";
+						}
+					},
+					error: data =>{
+						console.log(data);
+					}
+				})
+			}
+		});
+		
+	}
+	
+	
 	
 </script>
 </body>

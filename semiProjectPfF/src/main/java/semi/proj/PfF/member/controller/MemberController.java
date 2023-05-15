@@ -1,8 +1,11 @@
 package semi.proj.PfF.member.controller;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import semi.proj.PfF.member.model.exception.MemberException;
 import semi.proj.PfF.member.model.service.MemberService;
 import semi.proj.PfF.member.model.vo.Member;
 
@@ -22,6 +26,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService mService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
 	
 	// 로그인 화면 이동
 	@GetMapping("loginView.me")
@@ -35,10 +42,10 @@ public class MemberController {
 		// 서비스에 보내서 Member 채워옴
 		Member m = mService.login(login);
 		
-		if(m != null) {
+		if(m != null && bcrypt.matches(login.getMemberPwd(), m.getMemberPwd())) {
 			model.addAttribute("loginUser", m);
 			return "redirect:/";
-		} else return "loginFail";
+		} else throw new MemberException("아이디 또는 패스워드를 확인하세요.");
 	}
 	
 	// 로그아웃
@@ -61,7 +68,7 @@ public class MemberController {
 		return "enrollView";
 	}
 
-	// 회원가입
+	// 회원가입 집전화가 둘중에 하나라도 널이면 오류발생
 	@PostMapping("enroll.me")
 	public String enroll(@ModelAttribute Member enrollUser, @RequestParam("homePhone1") String home1, @RequestParam("homePhone2") String home2, @RequestParam("homePhone3") String home3,
 			 			@RequestParam("phone1") String phone1, @RequestParam("phone2") String phone2, @RequestParam("phone3") String phone3,
@@ -74,14 +81,25 @@ public class MemberController {
 		enrollUser.setMemberPhone(phone1 + "-" + phone2.trim() + "-" + phone3.trim());
 		enrollUser.setMemberAddress(addr1 + "/" + addr2 + "/" + addr3 + "/" + addr4);
 		
+		enrollUser.setMemberPwd(bcrypt.encode(enrollUser.getMemberPwd()));
+		
 		int result = mService.enroll(enrollUser);
 		
 		if(result > 0) {
 			login(enrollUser, model);
 			return "redirect:/";
-		} else {
-			return "loginFail";	// 에러페이지만들기
-		}
+		} else throw new MemberException("회원가입에 실패 했습니다.");
+	}
+	
+	@RequestMapping("checkId.me")
+	public void checkId(@RequestParam("id") String id, PrintWriter out) {
+		int count = mService.checkId(id);
+		out.print(count == 0 ? "yes" : "no");
+	}
+	
+	@RequestMapping("checkNickName.me")
+	public void checkNickName(@RequestParam("nickname") String nickname, PrintWriter out) {
+		out.print(mService.checkNickName(nickname) == 0 ? "yes" : "no");
 	}
 
 }

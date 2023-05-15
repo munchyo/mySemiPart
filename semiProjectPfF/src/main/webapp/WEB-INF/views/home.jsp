@@ -13,6 +13,8 @@
 	</c:if>
 	<c:if test="${ loginUser != null }">
 		<a href="${ contextPath }/logout.me"><button>로그아웃</button></a>
+		<br>
+		<p>${ loginUser.memberNickName }님, 환영합니다.</p>
 	</c:if>
 	<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/>
 <%@ include file="common/footer.jsp" %>

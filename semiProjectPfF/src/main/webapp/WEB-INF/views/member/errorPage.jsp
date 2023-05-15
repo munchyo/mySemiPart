@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +12,8 @@
 <body>
 	<script>
 		window.onload = () =>{
-			alert("아이디 또는 패스워드를 입력하세요.");
-			location.href="${contextPath}/loginView.me";
+			alert("${errorMessage}");
+			location.href= history.back();
 		}
 	</script>
 </body>

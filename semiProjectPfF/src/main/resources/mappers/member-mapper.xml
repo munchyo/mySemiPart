@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 	<select id="login" resultMap="memberResultSet">
-		select * from member where MEMBER_ID = #{ memberId } and MEMBER_PWD = #{ memberPwd } and member_status = 'Y'
+		select * from member where MEMBER_ID = #{ memberId } and member_status = 'Y'
 	</select>
 	
 	<resultMap type="Member" id="memberResultSet">
@@ -27,5 +27,12 @@
 	<insert id="enroll">
 		insert into member values(MEM_SEQ.NEXTVAL, #{memberId}, #{memberPwd}, #{memberName}, #{memberNickName}, #{memberAge}, #{memberGender}, #{memberEmail}, #{memberHomePhone}, #{memberPhone}, #{memberAddress}, sysdate, default, default, default, #{eventAgree}, default, default)	
 	</insert>
-
+	
+	<select id="checkId" resultType="_int">
+		select count(*) from member where member_id = #{id}
+	</select>
+	
+	<select id="checkNickName" resultType="_int">
+		select count(*) from member where member_nickname = #{nickname}
+	</select>
 </mapper>

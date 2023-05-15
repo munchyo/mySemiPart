@@ -22,4 +22,12 @@ public class MemberService {
 	public int enroll(Member enrollUser) {
 		return mDAO.enroll(sqlSession, enrollUser);
 	}
+
+	public int checkId(String id) {
+		return mDAO.checkId(sqlSession, id);
+	}
+
+	public int checkNickName(String nickname) {
+		return mDAO.checkNickName(sqlSession, nickname);
+	}
 }
