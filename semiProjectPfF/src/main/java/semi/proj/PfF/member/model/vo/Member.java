@@ -25,12 +25,13 @@ public class Member {
 	private String eventAgree;
 	private String grade;
 	private char admin;
-	
+	private char memberStatus;
+
 	public Member() {}
 
 	public Member(String memberId, String memberPwd, String memberName, String memberNickName, Date memberAge, char memberGender,
 			String memberEmail, String memberHomePhone, String memberPhone, String memberAddress, Date enrollDate,
-			int point, int payAmount, String eventAgree, String grade, char admin) {
+			int point, int payAmount, String eventAgree, String grade, char admin, char memverStatus) {
 		super();
 		this.memberId = memberId;
 		this.memberPwd = memberPwd;
@@ -48,6 +49,7 @@ public class Member {
 		this.eventAgree = eventAgree;
 		this.grade = grade;
 		this.admin = admin;
+		this.memberStatus = memberStatus;
 	}
 
 	public String getMemberId() {
@@ -177,6 +179,22 @@ public class Member {
 	public void setAdmin(char admin) {
 		this.admin = admin;
 	}
+	
+	public String getEventAgree() {
+		return eventAgree;
+	}
+
+	public void setEventAgree(String eventAgree) {
+		this.eventAgree = eventAgree;
+	}
+
+	public char getMemberStatus() {
+		return memberStatus;
+	}
+
+	public void setMemberStatus(char memberStatus) {
+		this.memberStatus = memberStatus;
+	}
 
 	@Override
 	public String toString() {
@@ -185,7 +203,7 @@ public class Member {
 				+ ", memberEmail=" + memberEmail + ", memberHomePhone=" + memberHomePhone + ", memberPhone="
 				+ memberPhone + ", memberAddress=" + memberAddress + ", enrollDate=" + enrollDate + ", point=" + point
 				+ ", payAmount=" + payAmount + ", eventAgree=" + eventAgree + ", grade=" + grade + ", admin=" + admin
-				+ "]";
+				+ ", memberStatus=" + memberStatus + "]";
 	}
 	
 }

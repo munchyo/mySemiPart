@@ -35,4 +35,25 @@
 	<select id="checkNickName" resultType="_int">
 		select count(*) from member where member_nickname = #{nickname}
 	</select>
+	
+	<select id="selectKakao" resultMap="kakaoResultSet">
+		select * from kakao_member where member_id = #{memberId} and member_status = 'Y'
+	</select>
+	
+	<resultMap type="KakaoMember" id="kakaoResultSet">
+		<id column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickName"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_POINT" property="point"/>
+		<result column="PAY_AMOUNT" property="payAmount"/>
+		<result column="GRADE_NO" property="grade"/>
+		<result column="IS_ADMIN" property="admin"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
+	</resultMap>
+	
+	<insert id="enrollKakao">
+		insert into kakao_member values(kakao_SEQ.NEXTVAL, #{memberId}, null, #{memberNickName}, null, default, default, 1, 'N', 'Y')
+	</insert>
+	
 </mapper>

@@ -36,6 +36,12 @@
 </head>
 <body>
 <body>
+<script type="text/javascript">
+	// 로그인 되어있으면 홈으로보냄
+	if(${loginUser != null}){
+		  location.href='${ contextPath }';
+	}
+</script>
 	<div class="box">
 		<form action="enrollView.me" method="post">
 			<a href="#"><img alt="로고" src="${ contextPath }/resources/image/logo1.png"></a><br><br><br>

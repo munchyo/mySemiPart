@@ -88,6 +88,12 @@
 </style>
 </head>
 <body>
+<script type="text/javascript">
+	// 로그인 되어있으면 홈으로보냄
+	if(${loginUser != null}){
+		  location.href='${ contextPath }';
+	}
+</script>
 	<div class="box">
 		<form action="${ contextPath }/enroll.me" method="post" id="form">
 			<input type="hidden" name="eventAgree" value="${ eventAgree }">
@@ -389,12 +395,13 @@
 	}
 	
 	window.onload = ()=>{
-		
+		cNickName.style.color = '#555';
+		cNickName.innerText = "닉네임 2-10자";
 		//닉네임 중복, 글자제한
 		nickName.addEventListener('change', function(e){
 			if(this.value.trim() == ""){
 				cNickName.style.color = '#555';
-				cNickName.innerText = "닉네임 2-10글자";
+				cNickName.innerText = "닉네임 2-10자";
 			} else if(this.value.trim().length > 10 || this.value.trim().length < 2) {
 				cNickName.style.color = 'red';
 				cNickName.innerText = "닉네임 길이가 유효하지 않습니다. (2-10자)";
@@ -442,6 +449,10 @@
 				id.select();
 			}
 		});
+		
+		pwd.addEventListener('keydown', function(e){
+			console.log(e.key)
+		})
 		
 	}
 	

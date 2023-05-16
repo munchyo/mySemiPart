@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Login</title>
 <link href="https://fonts.googleapis.com/earlyaccess/notosanskr.css" rel="stylesheet">
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
 	* {font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
  	body {margin: 0; background-color: #EEEFF1;}
@@ -63,6 +64,12 @@
 </style>
 </head>
 <body>
+<script type="text/javascript">
+	// 로그인 되어있으면 홈으로보냄
+// 	if(${loginUser != null}){
+// 		  location.href='${ contextPath }';
+// 	}
+</script>
   <div class="login-form">
     <form action="${ contextPath }/login.me" method="post">
       <a href="${ contextPath }"><img alt="로고" src="${ contextPath }/resources/image/logo1.png"></a><br/><br/>
@@ -87,7 +94,69 @@
       <a href="#">비밀번호찾기</a>
       
     </div>
-    <a href="#" target="_blank"><img alt="카카오로그인" src="${ contextPath }/resources/image/kakaologin.PNG" id="kakao"></a>
+    <a href="javascript:void(0)" onclick="kakaoLogin();"><img alt="카카오로그인" src="${ contextPath }/resources/image/kakaologin.PNG" id="kakao"></a>
+    <a href="javascript:void(0)" onclick="kakaoLogout();"><img alt="카카오로그인" src="${ contextPath }/resources/image/kakaologin.PNG" id="kakao"></a>
   </div>
+  
+  <script>
+  // kakao로긴 보내줄 폼생성
+  function sendPost(url, params) {
+	    var form = document.createElement('form');
+	    form.setAttribute('method', 'post');
+	    form.setAttribute('target', '_blank');
+	    form.setAttribute('action', url);
+	    document.charset = "UTF-8";
+
+	    for (var key in params) {
+	      var hiddenField = document.createElement('input');
+	      hiddenField.setAttribute('type', 'hidden');
+	      hiddenField.setAttribute('name', key);
+	      hiddenField.setAttribute('value', params[key]);
+	      form.appendChild(hiddenField);
+	    }
+
+	    document.body.appendChild(form);
+	    form.submit();
+  }
+  
+  
+  Kakao.init('6954463b661b4975a99753361883b6a6');
+  function kakaoLogin() {
+	    Kakao.Auth.login({
+	      success: function (response) {
+	        Kakao.API.request({
+	          url: '/v2/user/me',
+	          success: function (response) {
+	        	  console.log(response)
+	        	  sendPost('${contextPath}/kakaoLogin.me', {memberId:response.id, 
+	        		  										memberNickName:response.kakao_account.profile.nickname});
+	          },
+	          fail: function (error) {
+	            console.log(error)
+	          },
+	        })
+	      },
+	      fail: function (error) {
+	        console.log(error)
+	      },
+	    })
+	  }
+  
+  function kakaoLogout() {
+	    if (Kakao.Auth.getAccessToken()) {
+	      Kakao.API.request({
+	        url: '/v1/user/unlink',
+	        success: function (response) {
+	        	console.log(response)
+	        },
+	        fail: function (error) {
+	          console.log(error)
+	        },
+	      })
+	      Kakao.Auth.setAccessToken(undefined)
+	    }
+	  }  
+  </script>
+  
 </body>
 </html>

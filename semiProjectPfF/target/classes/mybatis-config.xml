@@ -8,6 +8,7 @@
 	<typeAliases>
 <!-- 		<typeAlias type="semi.proj.PfF.board.model.vo.Board" alias="Board"/> -->
 		<typeAlias type="semi.proj.PfF.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="semi.proj.PfF.member.model.vo.KakaoMember" alias="KakaoMember"/>
 	</typeAliases>
 
 	<mappers>

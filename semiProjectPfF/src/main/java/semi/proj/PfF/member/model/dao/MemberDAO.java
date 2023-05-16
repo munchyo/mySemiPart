@@ -3,6 +3,7 @@ package semi.proj.PfF.member.model.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import semi.proj.PfF.member.model.vo.KakaoMember;
 import semi.proj.PfF.member.model.vo.Member;
 
 @Repository
@@ -22,6 +23,14 @@ public class MemberDAO {
 
 	public int checkNickName(SqlSessionTemplate sqlSession, String nickname) {
 		return sqlSession.selectOne("memberMapper.checkNickName", nickname);
+	}
+
+	public KakaoMember selectKakaoMember(SqlSessionTemplate sqlSession, KakaoMember loginUser) {
+		return sqlSession.selectOne("memberMapper.selectKakao", loginUser);
+	}
+
+	public int enrollKakao(SqlSessionTemplate sqlSession, KakaoMember loginUser) {
+		return sqlSession.insert("memberMapper.enrollKakao", loginUser);
 	}
 	
 
