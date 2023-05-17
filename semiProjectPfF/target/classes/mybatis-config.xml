@@ -9,9 +9,11 @@
 <!-- 		<typeAlias type="semi.proj.PfF.board.model.vo.Board" alias="Board"/> -->
 		<typeAlias type="semi.proj.PfF.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="semi.proj.PfF.member.model.vo.KakaoMember" alias="KakaoMember"/>
+		<typeAlias type="semi.proj.PfF.product.model.vo.Product" alias="Product"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/product-mapper.xml"/>
 	</mappers>
 </configuration>

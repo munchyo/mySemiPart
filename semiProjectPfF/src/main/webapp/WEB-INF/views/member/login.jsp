@@ -95,7 +95,7 @@
       
     </div>
     <a href="javascript:void(0)" onclick="kakaoLogin();"><img alt="카카오로그인" src="${ contextPath }/resources/image/kakaologin.PNG" id="kakao"></a>
-    <a href="javascript:void(0)" onclick="kakaoLogout();"><img alt="카카오로그인" src="${ contextPath }/resources/image/kakaologin.PNG" id="kakao"></a>
+    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${5067e4fa44b181fed2713fe618ec9523}&redirect_uri=${http://localhost:8080/PfF}"><img alt="카카오로그인" src="${ contextPath }/resources/image/kakaologin.PNG" id="kakao"></a>
   </div>
   
   <script>
@@ -122,39 +122,41 @@
   
   Kakao.init('6954463b661b4975a99753361883b6a6');
   function kakaoLogin() {
-	    Kakao.Auth.login({
-	      success: function (response) {
-	        Kakao.API.request({
-	          url: '/v2/user/me',
-	          success: function (response) {
-	        	  console.log(response)
-	        	  sendPost('${contextPath}/kakaoLogin.me', {memberId:response.id, 
-	        		  										memberNickName:response.kakao_account.profile.nickname});
-	          },
-	          fail: function (error) {
-	            console.log(error)
-	          },
-	        })
-	      },
-	      fail: function (error) {
-	        console.log(error)
-	      },
-	    })
+// 	    Kakao.Auth.login({
+// 	      success: function (response) {
+// 	        Kakao.API.request({
+// 	          url: '/v2/user/me',
+// 	          success: function (response) {
+// 	        	  console.log(response)
+// 	        	  sendPost('${contextPath}/kakaoLogin.me', {memberId:response.id, 
+// 	        		  										memberNickName:response.kakao_account.profile.nickname});
+// 	          },
+// 	          fail: function (error) {
+// 	            console.log(error)
+// 	          },
+// 	        })
+// 	      },
+// 	      fail: function (error) {
+// 	        console.log(error)
+// 	      },
+// 	    })
+// 		location.href('https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${5067e4fa44b181fed2713fe618ec9523}&redirect_uri=${http://localhost:8080/PfF}');
+		
 	  }
   
   function kakaoLogout() {
-	    if (Kakao.Auth.getAccessToken()) {
-	      Kakao.API.request({
-	        url: '/v1/user/unlink',
-	        success: function (response) {
-	        	console.log(response)
-	        },
-	        fail: function (error) {
-	          console.log(error)
-	        },
-	      })
-	      Kakao.Auth.setAccessToken(undefined)
-	    }
+// 	    if (Kakao.Auth.getAccessToken()) {
+// 	      Kakao.API.request({
+// 	        url: '/v1/user/unlink',
+// 	        success: function (response) {
+// 	        	console.log(response)
+// 	        },
+// 	        fail: function (error) {
+// 	          console.log(error)
+// 	        },
+// 	      })
+// 	      Kakao.Auth.setAccessToken(undefined)
+// 	    }
 	  }  
   </script>
   

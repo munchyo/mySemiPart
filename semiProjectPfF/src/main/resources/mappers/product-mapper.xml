@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="productMapper">
+	<resultMap type="Product" id="productResultSet">
+		<id column="product_No" property="productNo"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="PRODUCT_PRICE" property="productPrice"/>
+		<result column="REGISTERATION_DATE" property="resisterationDate"/>
+		<result column="DISCOUNT_RATE" property="discountRate"/>
+		<result column="PRODUCT_INFO" property="productInfo"/>
+		<result column="PRODUCT_TYPE" property="productType"/>
+		<result column="PRODUCT_TYPE_2" property="producType2"/>
+		<result column="PRODUCT_MAINPIC" property="productMainPic"/>
+		<result column="PRODUCT_DETAILPIC1" property="productDetailPic1"/>
+		<result column="PRODUCT_DETAILPIC2" property="productDetailPic2"/>
+		<result column="PRODUCT_DETAILPIC3" property="productDetailPic3"/>
+	</resultMap>
+	
+	<select id="selectPrTypeList" resultMap="productResultSet">
+		select * from product where product_type = #{productType}
+	</select>
+</mapper>
