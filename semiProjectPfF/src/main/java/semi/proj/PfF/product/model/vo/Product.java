@@ -20,12 +20,11 @@ public class Product {
    private Date resisterationDate;
    private Integer discountRate;
    private String productInfo;
-   private int productType;
-   private int producType2;
+   private String productType;
+   private String producType2;
    private String productMainPic;
    private String productDetailPic1;
    private String productDetailPic2;
    private String productDetailPic3;
-
-	
+   private char productStatus;
 }

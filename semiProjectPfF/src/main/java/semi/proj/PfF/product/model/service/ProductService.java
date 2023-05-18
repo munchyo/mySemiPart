@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import semi.proj.PfF.common.model.vo.PageInfo;
 import semi.proj.PfF.product.model.dao.ProductDAO;
 import semi.proj.PfF.product.model.vo.Product;
 
@@ -18,8 +19,12 @@ public class ProductService {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 
-	public ArrayList<Product> selectPrTypeList(String productType) {
-		return pDAO.selectPrTypeList(sqlSession, productType);
+	public int selectCountPrList(String productType) {
+		return pDAO.selectCountPrList(sqlSession, productType);
+	}
+
+	public ArrayList<Product> selectPrList(PageInfo pi, String productType) {
+		return pDAO.selectPrList(sqlSession, pi, productType);
 	}
 	
 }

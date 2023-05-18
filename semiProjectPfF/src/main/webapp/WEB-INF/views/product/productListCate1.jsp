@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,9 @@
 	
 	.menuCategory li a:hover{
 		text-decoration:none;
-	    color: gray;
+	    color: #000;
+	    transition: all 0.2s ease-out;
+	    font-weight: bold;
 	}
 	
 	.product-list{
@@ -80,12 +83,62 @@
 	.clearfix{
 	    clear: both;
 	}
+	
+	.pagination-container {
+  margin: 70px auto;
+  text-align: center;
+}
+.pagination {
+  position: relative;
+}
+.pagination a {
+  position: relative;
+  display: inline-block;
+  color: #000;
+  text-decoration: none;
+  font-size: 13px;
+  padding: 8px 16px 15px;
+}
+.pagination a:before {
+  z-index: -1;
+  position: absolute;
+  height: 50%;
+  width: 50%;
+  content: "";
+  top: 8px;
+  left:10px;
+  background-color: #000;
+  border-radius: 25px;
+  transform: scale(0);
+  transition: all 0.2s;
+}
+.pagination a:hover,
+.pagination a .pagination-active {
+  color: #fff;
+}
+.pagination a:hover:before,
+.pagination a .pagination-active:before {
+  transform: scale(1);
+}
+.pagination .pagination-active {
+  color: #fff;
+}
+.pagination .pagination-active:before {
+  transform: scale(1);
+}
+.pagination-newer {
+  margin-right: 0px;
+}
+.pagination-older {
+  margin-left: 0px;
+}
 </style>
 </head>
 <body>
 	<div class="menuCategoryBox">
 	<ui class="menuCategory">
 		<li>ㅡ</li>
+		<li><a href="#">전체</a></li>
 		<li><a href="#">스웨트</a></li>
 		<li><a href="#">긴소매</a></li>
 		<li><a href="#">반소매</a></li>
@@ -96,105 +149,52 @@
 
     <div class="products">
         <h3>반소매 셔츠</h3>
-
+		
+		
+		
         <div class="product-list">
+		<c:forEach items="${ list }" var="p">
             <a href="#" class="product">
                 <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
                 <div class="product-name">
-                    반소매 셔츠
+                    ${ p.productName }
                 </div>
                 <div class="product-price">
-                    890,000
+                    ${ p.productPrice }
                 </div>
             </a>
-
-            
-            <a href="#" class="product">
-                <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
-                <div class="product-name">
-                    반소매 셔츠
-                </div>
-                <div class="product-price">
-                    890,000
-                </div>
-            </a>
-
-            
-            <a href="#" class="product">
-                <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
-                <div class="product-name">
-                    반소매 셔츠
-                </div>
-                <div class="product-price">
-                    890,000
-                </div>
-            </a>
-
-            
-            <a href="#" class="product">
-                <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
-                <div class="product-name">
-                    반소매 셔츠
-                </div>
-                <div class="product-price">
-                    890,000
-                </div>
-            </a>
-
-            
-            <a href="#" class="product">
-                <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
-                <div class="product-name">
-                    반소매 셔츠
-                </div>
-                <div class="product-price">
-                    890,000
-                </div>
-            </a>
-
-            
-            <a href="#" class="product">
-                <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
-                <div class="product-name">
-                    반소매 셔츠
-                </div>
-                <div class="product-price">
-                    890,000
-                </div>
-            </a>
-
-            <a href="#" class="product">
-                <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
-                <div class="product-name">
-                    반소매 셔츠
-                </div>
-                <div class="product-price">
-                    890,000
-                </div>
-            </a>
-            
-            <a href="#" class="product">
-                <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
-                <div class="product-name">
-                    반소매 셔츠
-                </div>
-                <div class="product-price">
-                    890,000
-                </div>
-            </a>
-            
-            <a href="#" class="product">
-                <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
-                <div class="product-name">
-                    반소매 셔츠
-                </div>
-                <div class="product-price">
-                    890,000
-                </div>          
-            </a>
+		</c:forEach>
             <div class="clearfix"></div>
         </div>
     </div>
+	
+	<nav class="pagination-container">
+		<div class="pagination">
+				<a class="pagination-newer" href="#">&laquo;</a>
+				<a class="pagination-newer" href="#">&lt;</a>
+				<span class="pagination-inner">
+				<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+					<a href="${contextPath}/productList.pr?productType=${ productType }&page=${p}">${ p }</a>
+				</c:forEach>
+				</span>
+				<a class="pagination-older" href="#">&gt;</a>
+				<a class="pagination-older" href="#">&raquo;</a>
+		</div>
+	</nav>
+	
+	<script>
+		console.log(document.getElementsByClassName('pagination-inner')[0].querySelectorAll('a')[0])
+		const aTags = document.getElementsByClassName('pagination-inner')[0].querySelectorAll('a');
+		for(const aTag of aTags){
+			aTag.addEventListener('click', function(){
+				console.log(this);
+				const page = this.innerText;
+				
+// 					location.href = '${contextPath}/.pr?productType=' + ${list[0].productType} + '&page=' + page;
+				
+			})
+		}
+	</script>
 	
 </body>
 </html>

@@ -14,9 +14,26 @@
 		<result column="PRODUCT_DETAILPIC1" property="productDetailPic1"/>
 		<result column="PRODUCT_DETAILPIC2" property="productDetailPic2"/>
 		<result column="PRODUCT_DETAILPIC3" property="productDetailPic3"/>
+		<result column="PRODUCT_STATUS" property="productStatus"/>
 	</resultMap>
 	
-	<select id="selectPrTypeList" resultMap="productResultSet">
-		select * from product where product_type = #{productType}
+	<select id="selectCountPrList" resultType="_int">
+		<if test="productType == '전체'">
+			select count(*) from product where product_status = 'Y'
+		</if>
+		<if test="productType != '전체'">
+			select count(*) from product where product_status = 'Y' and product_type = #{productType}
+		</if>
+	</select>
+	
+	<select id="selectPrList" resultMap="productResultSet">
+		<if test="productType == '전체'">
+			select * from product where product_status = 'Y'
+			order by REGISTERATION_DATE desc
+		</if>
+		<if test="productType != '전체'">
+			select * from product where product_status = 'Y' and product_type = #{productType}
+			order by REGISTERATION_DATE desc
+		</if>
 	</select>
 </mapper>

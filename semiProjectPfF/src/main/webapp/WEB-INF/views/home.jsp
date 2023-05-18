@@ -16,6 +16,10 @@
 		<br>
 		<p>${ loginUser.memberNickName }님, 환영합니다.</p>
 	</c:if>
+	<form action="productList.pr">
+	<input type="text" name="productType">
+	<input type="submit">
+	</form>
 	<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/>
 <%@ include file="common/footer.jsp" %>
 </body>

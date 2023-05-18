@@ -19,29 +19,29 @@ public class ProductController {
 	@Autowired
 	ProductService pService;
 	
-	@GetMapping(".pr")
-	public String productList(@RequestParam(value="page", required=false) Integer currentPage, @RequestParam("productType") String productType, Model model) {
+	@GetMapping("productList.pr")
+	public String productList(@RequestParam(value="page", required=false) Integer currentPage, @RequestParam(value="productType", required=false) String productType, Model model) {
 		if(currentPage == null) {
 			currentPage = 1;
 		}
 		
-		ArrayList<Product> productList = pService.selectPrTypeList(productType);// 상품 총 갯수, 상품 type2, 대표사진, productName, productPrice 활용가능
-		// 상품타입2는 중복된게 나올거같네, 페이지네이션도 적용안해서 다시생각해야할거같다
-		
-		int listCount = productList.size(); // 상품총갯수
+		int listCount = pService.selectCountPrList(productType); // 상품총갯수
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 12); // => 페이지네이션
+	
+		ArrayList<Product> list = pService.selectPrList(pi, productType); // => 상품리스트뽑아오기
+		// 상품 type2, 대표사진, productName, productPrice
 		
-//		ArrayList<Product> list = 상품리스트; => 상품리스트뽑아오기
+		System.out.println("상품리스트 : " + list);
 		
-//		if(list != null) {
-//			model.addAttribute("pi", pi);
-//			model.addAttribute("list", list);
-//			return "boardList";
-//		} else {
-//			throw new BoardException("게시글 조회를 실패하였습니다.");
-//		}
+		if(list != null) {
+			model.addAttribute("productType", productType);
+			model.addAttribute("pi", pi);
+			model.addAttribute("list", list);
+			return "productListCate1";
+		} else {
+			return null;
+		}
 		
-		return null;
 	}
 }
