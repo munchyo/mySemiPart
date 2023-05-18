@@ -36,4 +36,9 @@
 			order by REGISTERATION_DATE desc
 		</if>
 	</select>
+	
+	<select id="selectType2" resultType="String">
+		select distinct PRODUCT_TYPE_2 from product where product_type = #{productType}
+	</select>
+	
 </mapper>

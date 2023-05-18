@@ -23,9 +23,13 @@ public class ProductController {
 	public String productList(@RequestParam(value="page", required=false) Integer currentPage, @RequestParam(value="productType", required=false) String productType, Model model) {
 		if(currentPage == null) {
 			currentPage = 1;
+		} else if(currentPage < 0) {
+			currentPage = 1;
 		}
 		
 		int listCount = pService.selectCountPrList(productType); // 상품총갯수
+		
+		ArrayList<String> ProductType2 = pService.selectType2(productType);	// productType2 추출
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 12); // => 페이지네이션
 	
@@ -36,6 +40,7 @@ public class ProductController {
 		
 		if(list != null) {
 			model.addAttribute("productType", productType);
+			model.addAttribute("productType2", ProductType2);
 			model.addAttribute("pi", pi);
 			model.addAttribute("list", list);
 			return "productListCate1";

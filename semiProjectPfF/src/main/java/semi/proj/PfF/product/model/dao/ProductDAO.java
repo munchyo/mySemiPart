@@ -21,5 +21,9 @@ public class ProductDAO {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("productMapper.selectPrList", productType, rowBounds);
 	}
+
+	public ArrayList<String> selectType2(SqlSessionTemplate sqlSession, String productType) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectType2", productType);
+	}
 	
 }

@@ -26,5 +26,9 @@ public class ProductService {
 	public ArrayList<Product> selectPrList(PageInfo pi, String productType) {
 		return pDAO.selectPrList(sqlSession, pi, productType);
 	}
+
+	public ArrayList<String> selectType2(String productType) {
+		return pDAO.selectType2(sqlSession, productType);
+	}
 	
 }

@@ -138,11 +138,10 @@
 	<div class="menuCategoryBox">
 	<ui class="menuCategory">
 		<li>ㅡ</li>
-		<li><a href="#">전체</a></li>
-		<li><a href="#">스웨트</a></li>
-		<li><a href="#">긴소매</a></li>
-		<li><a href="#">반소매</a></li>
-		<li><a href="#">민소매</a></li>
+		<li><a href="#{ loc }">전체</a></li>
+		<c:forEach items="${ productType2 }" var="p2">
+			<li><a href="#">${ p2 }</a></li>
+		</c:forEach>
 		<li>ㅡ</li>
 	</ui>
 	</div>
@@ -170,30 +169,52 @@
 	
 	<nav class="pagination-container">
 		<div class="pagination">
-				<a class="pagination-newer" href="#">&laquo;</a>
-				<a class="pagination-newer" href="#">&lt;</a>
-				<span class="pagination-inner">
-				<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+			<c:url value="productList.pr?productType=${ productType }" var="goBackAll">
+				<c:param name="page" value="${ pi.startPage }" />
+			</c:url>
+			<c:url value="productList.pr?productType=${ productType }" var="goBack">
+				<c:param name="page" value="${ pi.currentPage - 1 }" />
+			</c:url>
+			<c:url value="productList.pr?productType=${ productType }" var="goNextAll">
+				<c:param name="page" value="${ pi.endPage }" />
+			</c:url>
+			<c:url value="productList.pr?productType=${ productType }" var="goNext">
+				<c:param name="page" value="${ pi.currentPage + 1 }" />
+			</c:url>
+			<a class="pagination-newer" href="${ goBackAll }" onclick="goBack(event)">&laquo;</a>
+			<a class="pagination-newer" href="${ goBack }" onclick="goBack(event)">&lt;</a>
+			<span class="pagination-inner">
+			<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+				<c:if test="${ pi.currentPage == p }">
+					<a href="${contextPath}/productList.pr?productType=${ productType }&page=${p}" class="pagination-active" onclick="current(event)">${ p }</a>
+				</c:if>
+				<c:if test="${ pi.currentPage != p }">
 					<a href="${contextPath}/productList.pr?productType=${ productType }&page=${p}">${ p }</a>
-				</c:forEach>
-				</span>
-				<a class="pagination-older" href="#">&gt;</a>
-				<a class="pagination-older" href="#">&raquo;</a>
+				</c:if>
+			</c:forEach>
+			</span>
+			<a class="pagination-older" href="${ goNext }" onclick="goNext(event)">&gt;</a>
+			<a class="pagination-older" href="${ goNextAll }" onclick="goNext(event)">&raquo;</a>
 		</div>
 	</nav>
 	
 	<script>
-		console.log(document.getElementsByClassName('pagination-inner')[0].querySelectorAll('a')[0])
-		const aTags = document.getElementsByClassName('pagination-inner')[0].querySelectorAll('a');
-		for(const aTag of aTags){
-			aTag.addEventListener('click', function(){
-				console.log(this);
-				const page = this.innerText;
-				
-// 					location.href = '${contextPath}/.pr?productType=' + ${list[0].productType} + '&page=' + page;
-				
-			})
+		// 페이지이동 비활성화
+		function current(e){
+			e.preventDefault();
 		}
+		if(${pi.currentPage}<=1){
+			function goBack(e){
+				e.preventDefault();
+			}
+		}
+		if(${pi.currentPage} >= ${pi.endPage}){
+			function goNext(e){
+				e.preventDefault();
+			}
+		}
+		
+		
 	</script>
 	
 </body>
