@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import semi.proj.PfF.common.model.service.MailSendService;
 import semi.proj.PfF.member.model.exception.MemberException;
 import semi.proj.PfF.member.model.service.MemberService;
 import semi.proj.PfF.member.model.vo.KakaoMember;
@@ -30,6 +32,9 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
+	
+	@Autowired
+	private MailSendService mailService;
 	
 	// 로그인 화면 이동
 	@GetMapping("loginView.me")
@@ -126,6 +131,12 @@ public class MemberController {
 			return "redirect:/";
 		}
 		
+	}
+	
+	@RequestMapping("mailCheck.me")
+	@ResponseBody
+	public String mailCheck(String email) {
+		return mailService.joinEmail(email);
 	}
 	
 }

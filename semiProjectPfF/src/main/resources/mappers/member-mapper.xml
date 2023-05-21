@@ -53,7 +53,7 @@
 	</resultMap>
 	
 	<insert id="enrollKakao">
-		insert into kakao_member values(kakao_SEQ.NEXTVAL, #{memberId}, null, #{memberNickName}, null, default, default, 1, 'N', 'Y')
+		insert into kakao_member values(MEM_SEQ.NEXTVAL, #{memberId}, null, #{memberNickName}, null, default, default, 1, 'N', 'Y')
 	</insert>
 	
 </mapper>

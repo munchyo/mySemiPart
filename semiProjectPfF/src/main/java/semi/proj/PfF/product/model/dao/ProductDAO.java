@@ -12,17 +12,25 @@ import semi.proj.PfF.product.model.vo.Product;
 @Repository
 public class ProductDAO {
 
-	public int selectCountPrList(SqlSessionTemplate sqlSession, String productType) {
-		return sqlSession.selectOne("productMapper.selectCountPrList", productType);
+	public int selectCountPrList(SqlSessionTemplate sqlSession, Product productType) {
+		if(productType.getproductType2() == null || productType.getproductType2().equals("전체")) {
+			return sqlSession.selectOne("productMapper.selectCountPrList", productType);
+		} else {
+			return sqlSession.selectOne("productMapper.selectCountPr2List", productType);
+		}
 	}
 
-	public ArrayList<Product> selectPrList(SqlSessionTemplate sqlSession, PageInfo pi, String productType) {
+	public ArrayList<Product> selectPrList(SqlSessionTemplate sqlSession, PageInfo pi, Product productType) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("productMapper.selectPrList", productType, rowBounds);
+		if(productType.getproductType2() == null || productType.getproductType2().equals("전체")) {
+			return (ArrayList)sqlSession.selectList("productMapper.selectPrList", productType, rowBounds);
+		} else {
+			return (ArrayList)sqlSession.selectList("productMapper.selectPr2List", productType, rowBounds);
+		}
 	}
 
-	public ArrayList<String> selectType2(SqlSessionTemplate sqlSession, String productType) {
+	public ArrayList<String> selectType2(SqlSessionTemplate sqlSession, Product productType) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectType2", productType);
 	}
 	

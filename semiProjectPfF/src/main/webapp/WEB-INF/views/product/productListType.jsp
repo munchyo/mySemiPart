@@ -63,7 +63,7 @@
 	    margin-bottom: 30px;
 	}
 	
-	img{border: 1px solid gray;}
+/* 	img{border: 1px solid gray;} */
 	
 	.product-name{
 	    margin-top: 5px;
@@ -138,23 +138,20 @@
 	<div class="menuCategoryBox">
 	<ui class="menuCategory">
 		<li>ㅡ</li>
-		<li><a href="#{ loc }">전체</a></li>
-		<c:forEach items="${ productType2 }" var="p2">
-			<li><a href="#">${ p2 }</a></li>
+		<li><a href="${contextPath}/productList.pr?productType=${ productType }&productType2=전체">전체</a></li>
+		<c:forEach items="${ productType2List }" var="p2">
+			<li><a href="${contextPath}/productList.pr?productType=${ productType }&productType2=${p2}">${ p2 }</a></li>
 		</c:forEach>
 		<li>ㅡ</li>
 	</ui>
 	</div>
 
     <div class="products">
-        <h3>반소매 셔츠</h3>
-		
-		
-		
+		<br><br><br>		
         <div class="product-list">
 		<c:forEach items="${ list }" var="p">
-            <a href="#" class="product">
-                <img src="https://balenciaga.dam.kering.com/m/3becacd7c6d635f6/Small-739028TOVN81055_Y.jpg?v=1" width="225" height="225px">
+            <a href="${contextPath}/productDetail/detail/${p.productNo}.pr" class="product">
+                <img src="${contextPath}/resources/product_img/${p.productMainPic}.jpg" width="225" height="225px">
                 <div class="product-name">
                     ${ p.productName }
                 </div>
@@ -186,10 +183,10 @@
 			<span class="pagination-inner">
 			<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
 				<c:if test="${ pi.currentPage == p }">
-					<a href="${contextPath}/productList.pr?productType=${ productType }&page=${p}" class="pagination-active" onclick="current(event)">${ p }</a>
+					<a href="${contextPath}/productList.pr?productType=${ productType }&productType2=${ productType2 }&page=${p}" class="pagination-active" onclick="current(event)">${ p }</a>
 				</c:if>
 				<c:if test="${ pi.currentPage != p }">
-					<a href="${contextPath}/productList.pr?productType=${ productType }&page=${p}">${ p }</a>
+					<a href="${contextPath}/productList.pr?productType=${ productType }&productType2=${ productType2 }&page=${p}">${ p }</a>
 				</c:if>
 			</c:forEach>
 			</span>

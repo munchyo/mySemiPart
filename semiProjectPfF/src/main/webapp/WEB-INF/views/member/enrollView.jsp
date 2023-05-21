@@ -54,7 +54,7 @@
 	
 	#postCode{border:0; border-bottom:1px solid #555; background:transparent; width:45%; padding:8px 0 5px 0; font-size:16px; color:#555;}
 	#postCode:focus{border:none; outline:none; border-bottom:1px solid #e74c3c;}
-	#addrBtn{ border: none; background-color: lightgray; color: black; cursor:pointer; padding:8px;}
+	#addrBtn, #mailBtn{ border: none; background-color: lightgray; color: black; cursor:pointer; padding:8px;}
 	#addrBtn:active{background-color: #808080;}
 	#address, #detailAddress, #refAddress{border:0; border-bottom:1px solid #555; background:transparent; width:70%; padding:8px 0 5px 0; font-size:16px; color:#555;}
 	#address:focus, #detailAddress:focus, #refAddress:focus{border:none; outline:none; border-bottom:1px solid #e74c3c;}
@@ -280,9 +280,47 @@
 			</div><br><br>
 			
 			<div class="input-container">		
-				<input type="email" required="required" id="email" name="memberEmail"/>
+				<input type="email" required="required" id="email" name="memberEmail" style="width: 210px"/>
 				<label for="email">이메일&nbsp;<b>*</b></label>
+				<button type="button" id="mailBtn">본인인증</button><br>
+				<input id="mailNum" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"><br>
+				<span id="mailCheck" style="float: left; margin-left: 15%; font-size: 12px"></span><br>
 			</div>
+			
+			<script>
+			$('#mailBtn').click(function() {
+				const eamil = $('#email').val();
+				const checkInput = $('#mailNum') // 인증번호 입력하는곳 
+				
+				$.ajax({
+					type : 'get',
+					url : '<c:url value ="mailCheck.me?email="/>'+eamil, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+					success : function (data) {
+						console.log("data : " +  data);
+						checkInput.attr('disabled',false);
+						code = data;
+						alert('인증번호가 전송되었습니다.')
+					}			
+				});
+			}); 
+			
+			// 인증번호 비교 
+			// blur -> focus가 벗어나는 경우 발생
+			$('#mailNum').blur(function () {
+				const inputCode = $(this).val();
+				const $resultMsg = $('#mailCheck');
+				
+				if(inputCode === code){
+					$resultMsg.html('인증번호가 일치합니다.');
+					$resultMsg.css('color','green');
+					$('#mailBtn').attr('disabled',true);
+					$('#email').attr('readonly',true);
+				}else{
+					$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+					$resultMsg.css('color','red');
+				}
+			});
+			</script>
 			
 			<div class="gender-container">
 			<span style="color:#555; float: right;">성별<span style="color:#e74c3c;">&nbsp;*</span>

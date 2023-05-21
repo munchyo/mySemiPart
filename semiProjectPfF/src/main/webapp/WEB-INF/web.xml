@@ -75,4 +75,18 @@
 		<url-pattern>*.pr</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 관리자관련 -->
+	<servlet>
+		<servlet-name>adminServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/administrator-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>adminServlet</servlet-name>
+		<url-pattern>*.ad</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

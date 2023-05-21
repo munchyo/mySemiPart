@@ -19,15 +19,15 @@ public class ProductService {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 
-	public int selectCountPrList(String productType) {
+	public int selectCountPrList(Product productType) {
 		return pDAO.selectCountPrList(sqlSession, productType);
 	}
 
-	public ArrayList<Product> selectPrList(PageInfo pi, String productType) {
+	public ArrayList<Product> selectPrList(PageInfo pi, Product productType) {
 		return pDAO.selectPrList(sqlSession, pi, productType);
 	}
 
-	public ArrayList<String> selectType2(String productType) {
+	public ArrayList<String> selectType2(Product productType) {
 		return pDAO.selectType2(sqlSession, productType);
 	}
 	

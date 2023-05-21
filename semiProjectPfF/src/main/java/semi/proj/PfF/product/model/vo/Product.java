@@ -16,7 +16,7 @@ public class Product {
    private Integer discountRate;
    private String productInfo;
    private String productType;
-   private String producType2;
+   private String productType2;
    private String productMainPic;
    private String productDetailPic1;
    private String productDetailPic2;
@@ -26,7 +26,7 @@ public class Product {
    public Product() {}
 
 	public Product(int productNo, String productName, int productPrice, Date resisterationDate, Integer discountRate,
-			String productInfo, String productType, String producType2, String productMainPic, String productDetailPic1,
+			String productInfo, String productType, String productType2, String productMainPic, String productDetailPic1,
 			String productDetailPic2, String productDetailPic3, char productStatus) {
 		super();
 		this.productNo = productNo;
@@ -36,7 +36,7 @@ public class Product {
 		this.discountRate = discountRate;
 		this.productInfo = productInfo;
 		this.productType = productType;
-		this.producType2 = producType2;
+		this.productType2 = productType2;
 		this.productMainPic = productMainPic;
 		this.productDetailPic1 = productDetailPic1;
 		this.productDetailPic2 = productDetailPic2;
@@ -100,12 +100,12 @@ public class Product {
 		this.productType = productType;
 	}
 
-	public String getProducType2() {
-		return producType2;
+	public String getproductType2() {
+		return productType2;
 	}
 
-	public void setProducType2(String producType2) {
-		this.producType2 = producType2;
+	public void setProductType2(String productType2) {
+		this.productType2 = productType2;
 	}
 
 	public String getProductMainPic() {
@@ -152,7 +152,7 @@ public class Product {
 	public String toString() {
 		return "Product [productNo=" + productNo + ", productName=" + productName + ", productPrice=" + productPrice
 				+ ", resisterationDate=" + resisterationDate + ", discountRate=" + discountRate + ", productInfo="
-				+ productInfo + ", productType=" + productType + ", producType2=" + producType2 + ", productMainPic="
+				+ productInfo + ", productType=" + productType + ", productType2=" + productType2 + ", productMainPic="
 				+ productMainPic + ", productDetailPic1=" + productDetailPic1 + ", productDetailPic2="
 				+ productDetailPic2 + ", productDetailPic3=" + productDetailPic3 + ", productStatus=" + productStatus
 				+ "]";

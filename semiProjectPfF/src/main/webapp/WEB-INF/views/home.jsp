@@ -20,6 +20,7 @@
 	<input type="text" name="productType">
 	<input type="submit">
 	</form>
+	<a href="${ contextPath }/statistics.ad"><button>통계</button></a>
 	<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/>
 <%@ include file="common/footer.jsp" %>
 </body>

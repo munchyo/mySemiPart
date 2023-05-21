@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import semi.proj.PfF.common.Pagination;
@@ -20,33 +21,30 @@ public class ProductController {
 	ProductService pService;
 	
 	@GetMapping("productList.pr")
-	public String productList(@RequestParam(value="page", required=false) Integer currentPage, @RequestParam(value="productType", required=false) String productType, Model model) {
+	public String productList(@RequestParam(value="page", required=false) Integer currentPage, @ModelAttribute Product productType, Model model) {
+		
 		if(currentPage == null) {
 			currentPage = 1;
 		} else if(currentPage < 0) {
 			currentPage = 1;
 		}
 		
+		if(productType.getproductType2() == null) productType.setProductType2("전체");
+		
 		int listCount = pService.selectCountPrList(productType); // 상품총갯수
 		
 		ArrayList<String> ProductType2 = pService.selectType2(productType);	// productType2 추출
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 12); // => 페이지네이션
-	
-		ArrayList<Product> list = pService.selectPrList(pi, productType); // => 상품리스트뽑아오기
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 20); // => 페이지네이션
+		
+		ArrayList<Product> list = pService.selectPrList(pi, productType); // => 전체 상품리스트뽑아오기
 		// 상품 type2, 대표사진, productName, productPrice
 		
-		System.out.println("상품리스트 : " + list);
-		
-		if(list != null) {
-			model.addAttribute("productType", productType);
-			model.addAttribute("productType2", ProductType2);
-			model.addAttribute("pi", pi);
-			model.addAttribute("list", list);
-			return "productListCate1";
-		} else {
-			return null;
-		}
-		
+		model.addAttribute("productType", productType.getProductType());	// 어떤카테고리를 볼지 위함
+		model.addAttribute("productType2", productType.getproductType2());	// 어떤카테고리를 볼지 위함
+		model.addAttribute("productType2List", ProductType2);	// 카테고리2 조회하기위함
+		model.addAttribute("pi", pi);	// 페이지네이션
+		model.addAttribute("list", list);	// 페이지네이션된 리스트
+		return "productListType";
 	}
 }

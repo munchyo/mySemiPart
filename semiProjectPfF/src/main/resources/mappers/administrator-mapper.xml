@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="administratorMapper">
+	
+	<select id="selectNumPayer" resultType="Integer">
+		select count(distinct member_no) from order_detail 
+		where order_date >= #{oneMonthAgo}
+		group by order_date 
+		order by order_date
+	</select>
+
+	<select id="selectNumPay" resultType="Integer">
+		select count(order_no) 
+		from order_detail where order_date >= #{oneMonthAgo} 
+		group by order_date order by order_date
+	</select>
+
+	<select id="selectDate" resultType="date">
+		select distinct order_date from order_detail 
+		where order_date >= #{oneMonthAgo}
+		order by order_date
+	</select>
+	
+	<select id="selectSumPrice" resultType="Integer">
+		select sum(order_price) from order_detail group by order_date order by order_date
+	</select>
+
+	<select id="selectAvgPrice" resultType="Double">
+		SELECT TRUNC(AVG(order_price))
+		FROM order_detail
+		WHERE order_date >= TRUNC(sysdate) - 7
+		GROUP BY TRUNC(order_date)
+		ORDER BY TRUNC(order_date)
+	</select>
+
+	<select id="selectAmountPayDate" resultType="date">
+		select distinct order_date from order_detail order by order_date
+	</select>
+	
+</mapper>
