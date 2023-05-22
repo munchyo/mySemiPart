@@ -30,6 +30,7 @@ public class AdministratorController {
 		return "statistics";
 	}
 	
+	// 결제자/결제 수 통계
 	@RequestMapping("numOfPay.ad")
 	public void numOfPay(HttpServletResponse response) {
 //		1. 결제자 수 , 날짜로 그룹바이 해서 COUNT 하는데 같은사람이 결제햇을때 중복이되면안됨 
@@ -61,6 +62,7 @@ public class AdministratorController {
 		
 	}
 	
+	// 일별결제금액 통계
 	@RequestMapping("amountOfPay.ad")
 	public void amountOfPay(HttpServletResponse response) {
 //		1. 일별 결제 금액 , 날짜로 그룹바이해서 sum
