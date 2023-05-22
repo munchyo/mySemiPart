@@ -282,7 +282,7 @@
 			<div class="input-container">		
 				<input type="email" required="required" id="email" name="memberEmail" style="width: 210px"/>
 				<label for="email">이메일&nbsp;<b>*</b></label>
-				<button type="button" id="mailBtn">본인인증</button><br>
+				<button type="button" id="mailBtn" disabled>본인인증</button><br>
 				<input id="mailNum" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"><br>
 				<span id="mailCheck" style="float: left; margin-left: 15%; font-size: 12px"></span><br>
 			</div>
@@ -320,6 +320,17 @@
 					$resultMsg.css('color','red');
 				}
 			});
+			
+			const emailTag = document.getElementById('email');///////////////////////////////////////////////////////////////////////////////////////////////////////////
+			const emailBtn = document.getElementById('mailBtn');
+			emailTag.addEventListener('ketdown', function(){
+				if(emailTag.value.trim()==""){
+					emailBtn.disabled = true;
+				} else{
+					emailBtn.disabled = false;
+				}
+			})
+			
 			</script>
 			
 			<div class="gender-container">
