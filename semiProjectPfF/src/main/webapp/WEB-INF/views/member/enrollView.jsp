@@ -290,11 +290,11 @@
 			<script>
 			$('#mailBtn').click(function() {
 				const eamil = $('#email').val();
-				const checkInput = $('#mailNum') // 인증번호 입력하는곳 
+				const checkInput = $('#mailNum');
 				
 				$.ajax({
 					type : 'get',
-					url : '<c:url value ="mailCheck.me?email="/>'+eamil, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+					url : '<c:url value ="mailCheck.me?email="/>'+eamil,
 					success : function (data) {
 						console.log("data : " +  data);
 						checkInput.attr('disabled',false);
@@ -485,6 +485,13 @@
 				e.preventDefault();
 				id.focus();
 				id.select();
+			}
+			
+			if(document.getElementById('mailCheck').innerText != '인증번호가 일치합니다.' 
+					&& document.getElementById('mailCheck').style.color != 'green'){
+				alert('이메일 인증이 필요합니다.');
+				e.preventDefault();
+				
 			}
 		});
 		

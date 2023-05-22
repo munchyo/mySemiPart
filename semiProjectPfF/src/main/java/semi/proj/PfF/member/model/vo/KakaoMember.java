@@ -1,10 +1,15 @@
 package semi.proj.PfF.member.model.vo;
 
+import java.sql.Date;
+
 public class KakaoMember {
 	private long memberId;
 	private String memberName;
 	private String memberNickName;
+	private String memberHomePhone;
+	private String memberPhone;
 	private String memberAddress;
+	private Date enrollDate;
 	private int point;
 	private int payAmount;
 	private String grade;
@@ -13,13 +18,17 @@ public class KakaoMember {
 	
 	public KakaoMember() {}
 
-	public KakaoMember(long memberId, String memberName, String memberNickName, String memberAddress, int point,
-			int payAmount, String grade, char admin, char memberStatus) {
+	public KakaoMember(long memberId, String memberName, String memberNickName, String memberHomePhone,
+			String memberPhone, String memberAddress, Date enrollDate, int point, int payAmount, String grade,
+			char admin, char memberStatus) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.memberNickName = memberNickName;
+		this.memberHomePhone = memberHomePhone;
+		this.memberPhone = memberPhone;
 		this.memberAddress = memberAddress;
+		this.enrollDate = enrollDate;
 		this.point = point;
 		this.payAmount = payAmount;
 		this.grade = grade;
@@ -51,12 +60,36 @@ public class KakaoMember {
 		this.memberNickName = memberNickName;
 	}
 
+	public String getMemberHomePhone() {
+		return memberHomePhone;
+	}
+
+	public void setMemberHomePhone(String memberHomePhone) {
+		this.memberHomePhone = memberHomePhone;
+	}
+
+	public String getMemberPhone() {
+		return memberPhone;
+	}
+
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
+	}
+
 	public String getMemberAddress() {
 		return memberAddress;
 	}
 
 	public void setMemberAddress(String memberAddress) {
 		this.memberAddress = memberAddress;
+	}
+
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
 	}
 
 	public int getPoint() {
@@ -102,8 +135,9 @@ public class KakaoMember {
 	@Override
 	public String toString() {
 		return "KakaoMember [memberId=" + memberId + ", memberName=" + memberName + ", memberNickName=" + memberNickName
-				+ ", memberAddress=" + memberAddress + ", point=" + point + ", payAmount=" + payAmount + ", grade="
-				+ grade + ", admin=" + admin + ", memberStatus=" + memberStatus + "]";
+				+ ", memberHomePhone=" + memberHomePhone + ", memberPhone=" + memberPhone + ", memberAddress="
+				+ memberAddress + ", enrollDate=" + enrollDate + ", point=" + point + ", payAmount=" + payAmount
+				+ ", grade=" + grade + ", admin=" + admin + ", memberStatus=" + memberStatus + "]";
 	}
-	
+
 }

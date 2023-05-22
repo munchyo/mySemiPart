@@ -116,7 +116,7 @@ public class MemberController {
 	
 	@PostMapping("kakaoLogin.me")
 	public String kakaoLogin(@ModelAttribute KakaoMember loginUser, Model model) {
-		// 만약에 처음 카카오로그인한거면 디비에 크리에이트하고 로그인해야함, 처음이 아니면 그냥 로그인시킴 그럴려면 디비에 count되는지 확인해야함
+		// 만약에 처음 카카오로그인한거면 디비에 크리에이트하고 로그인해야함, 처음이 아니면 그냥 로그인시킴 그럴려면 디비에 select되는지 확인해야함
 		KakaoMember kakao = mService.selectKakaoMember(loginUser);
 		
 		if(kakao != null) {

@@ -45,6 +45,6 @@ public class ProductController {
 		model.addAttribute("productType2List", ProductType2);	// 카테고리2 조회하기위함
 		model.addAttribute("pi", pi);	// 페이지네이션
 		model.addAttribute("list", list);	// 페이지네이션된 리스트
-		return "productListType";
+		return "productList";
 	}
 }
