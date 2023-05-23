@@ -45,7 +45,6 @@ public class MemberController {
 	// 회원로그인
 	@PostMapping("login.me")
 	public String login(@ModelAttribute Member login, Model model) {
-		// ���񽺿� ������ Member ä����d
 		Member m = mService.login(login);
 		
 		if(m != null && bcrypt.matches(login.getMemberPwd(), m.getMemberPwd())) {
@@ -84,7 +83,7 @@ public class MemberController {
 		if(home2 != null && home3 != null) {
 			enrollUser.setMemberHomePhone(home1 + "-" + home2.trim() + "-" + home3.trim());
 		} else if((home2 == null && home3 != null) || (home2 != null && home3 == null)) {
-			throw new MemberException("���ù�ȣ�� �߸� �ԷµǾ����ϴ�.");
+			throw new MemberException("회원가입에 실패하였습니다.");
 		} else {
 			enrollUser.setMemberHomePhone(null);
 		}
@@ -99,7 +98,7 @@ public class MemberController {
 		if(result > 0) {
 			model.addAttribute("loginUser", enrollUser);
 			return "redirect:/";
-		} else throw new MemberException("ȸ�����Կ� ���� �߽��ϴ�.");
+		} else throw new MemberException("회원가입에 실패하였습니다.");
 		
 	}
 	
@@ -126,7 +125,7 @@ public class MemberController {
 	// 카카오로그인
 	@PostMapping("kakaoLogin.me")
 	public String kakaoLogin(@ModelAttribute KakaoMember loginUser, Model model) {
-		// ���࿡ ó�� īī���α����ѰŸ� ��� ũ������Ʈ�ϰ� �α����ؾ���, ó���� �ƴϸ� �׳� �α��ν�Ŵ �׷����� ��� select�Ǵ��� Ȯ���ؾ���
+		// DB에 정보가 있다면 로그인, 없다면 회원가입 후 로그인
 		KakaoMember kakao = mService.selectKakaoMember(loginUser);
 		
 		if(kakao != null) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import semi.proj.PfF.common.Pagination;
 import semi.proj.PfF.common.model.vo.PageInfo;
+import semi.proj.PfF.member.model.exception.MemberException;
 import semi.proj.PfF.product.model.service.ProductService;
 import semi.proj.PfF.product.model.vo.Product;
 
@@ -29,7 +30,7 @@ public class ProductController {
 			currentPage = 1;
 		}
 		
-		if(productType.getproductType2() == null) productType.setProductType2("��ü");
+		if(productType.getproductType2() == null) productType.setProductType2("전체");
 		
 		int listCount = pService.selectCountPrList(productType); // 상품총갯수
 		
@@ -40,11 +41,15 @@ public class ProductController {
 		ArrayList<Product> list = pService.selectPrList(pi, productType); // => 전체 상품리스트뽑아오기
 		// 상품 type2, 대표사진, productName, productPrice
 		
-		model.addAttribute("productType", productType.getProductType());	// 어떤카테고리를 볼지 위함
-		model.addAttribute("productType2", productType.getproductType2());	// 어떤카테고리를 볼지 위함
-		model.addAttribute("productType2List", ProductType2);	// 카테고리2 조회하기위함
-		model.addAttribute("pi", pi);	// 페이지네이션
-		model.addAttribute("list", list);	// 페이지네이션된 리스트
-		return "productList";
+		if(list != null) {
+			model.addAttribute("productType", productType.getProductType());	// 어떤카테고리를 볼지 위함
+			model.addAttribute("productType2", productType.getproductType2());	// 어떤카테고리를 볼지 위함
+			model.addAttribute("productType2List", ProductType2);	// 카테고리2 조회하기위함
+			model.addAttribute("pi", pi);	// 페이지네이션
+			model.addAttribute("list", list);	// 페이지네이션된 리스트
+			return "productList";
+		} else {
+			throw new MemberException("조회되는 상품이 없습니다.");
+		}
 	}
 }
