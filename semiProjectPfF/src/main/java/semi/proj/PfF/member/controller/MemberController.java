@@ -50,7 +50,7 @@ public class MemberController {
 		if(m != null && bcrypt.matches(login.getMemberPwd(), m.getMemberPwd())) {
 			model.addAttribute("loginUser", m);
 			return "redirect:/";
-		} else throw new MemberException("���̵� �Ǵ� �н����带 Ȯ���ϼ���.");
+		} else throw new MemberException("아이디 혹은 비밀번호를 확인하세요.");
 	}
 	
 	// 로그아웃

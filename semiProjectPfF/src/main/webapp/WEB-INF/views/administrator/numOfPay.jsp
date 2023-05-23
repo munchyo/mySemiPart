@@ -44,6 +44,13 @@
 </script>
 </head>
 <body>
+<script>
+	if(${loginUser != null}){
+		  location.href='${ contextPath }';
+	} else if(${loginUser.isAdmin == 'N'}){
+		  location.href='${ contextPath }';
+	}
+</script>
 <div id="numOfPayChart"></div>
 <script>
 

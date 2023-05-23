@@ -38,6 +38,13 @@
 </style>
 </head>
 <body>
+<script>
+	if(${loginUser != null}){
+		  location.href='${ contextPath }';
+	} else if(${loginUser.isAdmin == 'N'}){
+		  location.href='${ contextPath }';
+	}
+</script>
 <div class="boardBox">
 <h3 class="subH3">통계관리 <span>매출분석</span></h3>
 <div class="chartBox">

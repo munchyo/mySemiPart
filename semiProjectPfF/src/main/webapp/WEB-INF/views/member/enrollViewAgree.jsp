@@ -36,7 +36,7 @@
 </head>
 <body>
 <body>
-<script type="text/javascript">
+<script>
 	// 로그인 되어있으면 홈으로보냄
 	if(${loginUser != null}){
 		  location.href='${ contextPath }';
