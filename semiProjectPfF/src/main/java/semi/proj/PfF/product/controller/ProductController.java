@@ -38,7 +38,7 @@ public class ProductController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 20); // => 페이지네이션
 		
 		ArrayList<Product> list = pService.selectPrList(pi, productType); // => 전체 상품리스트뽑아오기
-		// ��ǰ type2, ��ǥ����, productName, productPrice
+		// 상품 type2, 대표사진, productName, productPrice
 		
 		model.addAttribute("productType", productType.getProductType());	// 어떤카테고리를 볼지 위함
 		model.addAttribute("productType2", productType.getproductType2());	// 어떤카테고리를 볼지 위함
