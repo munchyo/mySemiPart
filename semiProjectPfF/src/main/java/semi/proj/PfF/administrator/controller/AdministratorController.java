@@ -30,12 +30,12 @@ public class AdministratorController {
 		return "statistics";
 	}
 	
-	// °áÁ¦ÀÚ/°áÁ¦ ¼ö Åë°è
+	// ê²°ì œì/ê²°ì œ ìˆ˜ í†µê³„
 	@RequestMapping("numOfPay.ad")
 	public void numOfPay(HttpServletResponse response) {
-//		1. °áÁ¦ÀÚ ¼ö , ³¯Â¥·Î ±×·ì¹ÙÀÌ ÇØ¼­ COUNT ÇÏ´Âµ¥ °°Àº»ç¶÷ÀÌ °áÁ¦ÇŞÀ»¶§ Áßº¹ÀÌµÇ¸é¾ÈµÊ 
-//		2. °áÁ¦ ¼ö , ³¯Â¥·Î ±×·ì¹ÙÀÌÇØ¼­ COUNT ÇØ¾ßÇÏÁö¾ÊÀ»±î
-//		3. ³¯Â¥µé
+//		1. ê²°ì œì ìˆ˜ , ë‚ ì§œë¡œ ê·¸ë£¹ë°”ì´ í•´ì„œ COUNT í•˜ëŠ”ë° ê°™ì€ì‚¬ëŒì´ ê²°ì œí–‡ì„ë•Œ ì¤‘ë³µì´ë˜ë©´ì•ˆë¨ 
+//		2. ê²°ì œ ìˆ˜ , ë‚ ì§œë¡œ ê·¸ë£¹ë°”ì´í•´ì„œ COUNT í•´ì•¼í•˜ì§€ì•Šì„ê¹Œ
+//		3. ë‚ ì§œë“¤
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MONTH, -1);
 		Date oneMonthAgo = calendar.getTime();
@@ -62,12 +62,12 @@ public class AdministratorController {
 		
 	}
 	
-	// ÀÏº°°áÁ¦±İ¾× Åë°è
+	// ì¼ë³„ê²°ì œê¸ˆì•¡ í†µê³„
 	@RequestMapping("amountOfPay.ad")
 	public void amountOfPay(HttpServletResponse response) {
-//		1. ÀÏº° °áÁ¦ ±İ¾× , ³¯Â¥·Î ±×·ì¹ÙÀÌÇØ¼­ sum
-//		2. ÇØ´ç³¯Â¥ Æ÷ÇÔÇÑ 7ÀÏ°£Æò±Õ ±İ¾×, ¸Ç Ã¹³¯Àº 7ÀÏ Æò±ÕÀÌ ¾øÀ»Å×´Ï 0À¸·Î ¼³Á¤
-//		3. ³¯Â¥µé
+//		1. ì¼ë³„ ê²°ì œ ê¸ˆì•¡ , ë‚ ì§œë¡œ ê·¸ë£¹ë°”ì´í•´ì„œ sum
+//		2. í•´ë‹¹ë‚ ì§œ í¬í•¨í•œ 7ì¼ê°„í‰ê·  ê¸ˆì•¡, ë§¨ ì²«ë‚ ì€ 7ì¼ í‰ê· ì´ ì—†ì„í…Œë‹ˆ 0ìœ¼ë¡œ ì„¤ì •
+//		3. ë‚ ì§œë“¤
 		
 		ArrayList<Integer> sumPrice = aService.selectSumPrice();
 		ArrayList<Integer> avgPrice = aService.selectAvgPrice();

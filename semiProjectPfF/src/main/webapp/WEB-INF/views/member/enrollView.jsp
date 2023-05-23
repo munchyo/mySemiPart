@@ -50,6 +50,12 @@
 	 border-bottom:1px solid #e74c3c;	
 	}
 	
+	.input-container input:focus ~ label,
+	.input-container input:valid ~ label{
+		top:-12px;
+		font-size:12px;
+		
+	}
 	.gender-container {position:relative; margin-bottom:30px; float: left; margin-left: 15%;}
 	
 	#postCode{border:0; border-bottom:1px solid #555; background:transparent; width:45%; padding:8px 0 5px 0; font-size:16px; color:#555;}
@@ -80,12 +86,6 @@
 	  
 	#btn:active{color: #808080;}
 	#btn {font-size: 14px; border: none; padding: 10px; width: 260px; background-color: black; margin-bottom: 30px; color: white; cursor:pointer;}
-	.input-container input:focus ~ label,
-	.input-container input:valid ~ label{
-		top:-12px;
-		font-size:12px;
-		
-	}
 </style>
 </head>
 <body>
@@ -118,6 +118,9 @@
 		} else if(this.value.trim().length < 4 || this.value.trim().length > 10){
 			cId.innerText = "아이디는 영문숫자 조합 4-15자 제한입니다.";
 			cId.style.color = 'red';
+		} else if(korean.test(id.value.trim()) || reg.test(id.value.trim())){
+			cId.innerText = "아이디는 영문, 숫자만 입력 가능합니다.";
+			cId.style.color = 'red';
 		} else{
 			$.ajax({
 				url: '${contextPath}/checkId.me',
@@ -130,9 +133,6 @@
 						cId.style.color = 'red';
 						cId.innerText = "중복된 아이디입니다.";
 					}
-				},
-				error: data =>{
-					console.log(data);
 				}
 			})
 		}
@@ -169,7 +169,7 @@
 	const pwd2 = document.getElementById('pwd2');
 	const cPwd = document.getElementById('pwdCheck');
 	
-	// pwd 유효성 알려만주기
+	// pwd2 유효성 알려만주기
 	const checkPwd = ()=>{
 		if(pwd2.value.trim().length==0 || pwd2.value.trim()==""){
 			cPwd.innerText = "";
@@ -323,9 +323,6 @@ nickName.addEventListener('change', function(e){
 					cNickName.style.color = 'red';
 					cNickName.innerText = "중복된 닉네임입니다.";
 				}
-			},
-			error: data =>{
-				console.log(data);
 			}
 		})
 	}
@@ -395,15 +392,14 @@ nickName.addEventListener('change', function(e){
 				<input type="email" required="required" id="email" name="memberEmail" style="width: 210px"/>
 				<label for="email">이메일&nbsp;<b>*</b></label>
 				<button type="button" id="mailBtn" disabled>본인인증</button><br>
-				<input id="mailNum" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"><br>
+				<input id="mailNum" placeholder="인증번호를 입력해주세요!" disabled="disabled"><br>
 				<span id="mailCheck" style="float: left; margin-left: 15%; font-size: 12px"></span><br>
 			</div>
 			
 <script>
 	const emailTag = document.getElementById('email');
 	const emailBtn = document.getElementById('mailBtn');
-	
-	console.log(emailTag)
+	const emailCheck = document.getElementById('mailCheck');
 	
 	$('#mailBtn').click(function() {
 		const eamil = $('#email').val();
@@ -427,19 +423,32 @@ nickName.addEventListener('change', function(e){
 		const $resultMsg = $('#mailCheck');
 		
 		if(inputCode === code){
-			$resultMsg.html('인증번호가 일치합니다.');
-			$resultMsg.css('color','green');
-			$('#mailBtn').attr('disabled',true);
-			$('#email').attr('readonly',true);
-			$('#mailNum').attr('readonly',true);
-			emailTag.style.color = 'gray';
-			document.getElementById('mailNum').style.color = 'gray';
-		}else{
+			$.ajax({
+				url: '${contextPath}/checkEmail.me',
+				data: {email:emailTag.value.trim()},
+				success: data =>{
+					if(data == 'yes'){
+						$resultMsg.html('인증번호가 일치합니다.');
+						$resultMsg.css('color','green');
+						$('#mailBtn').attr('disabled',true);
+						$('#email').attr('readonly',true);
+						$('#mailNum').attr('readonly',true);
+						emailTag.style.color = 'gray';
+						document.getElementById('mailNum').style.color = 'gray';
+					} else if(data == 'no'){
+						$resultMsg.html('중복된 이메일입니다.');
+						$resultMsg.css('color','red');
+					}
+				}
+			})
+		} else if (inputCode !== code){
 			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요.');
 			$resultMsg.css('color','red');
 		}
 	});
-			
+	
+	
+	
 	// 인증버튼 비활성화
 	
 	emailBtn.disabled = true;
@@ -448,10 +457,10 @@ nickName.addEventListener('change', function(e){
 		if(emailTag.value.trim() == "" || emailTag.value.trim() == null){
 			emailBtn.disabled = true;
 			emailBtn.style.cursor = '';
-		} else{
+		} else {
 			emailBtn.disabled = false;
 			emailBtn.style.cursor = 'pointer';
-		}
+		} 
 	})
 </script>
 			
@@ -516,8 +525,8 @@ nickName.addEventListener('change', function(e){
 			id.select();
 		}
 		
-		if(document.getElementById('mailCheck').innerText != '인증번호가 일치합니다.' 
-				&& document.getElementById('mailCheck').style.color != 'green'){
+		if(emailCheck.innerText != '인증번호가 일치합니다.' 
+				&& document.getElementById('mailCheck').style.color != 'green' && emailCheck.style.color == 'red'){
 			alert('이메일 인증이 필요합니다.');
 			e.preventDefault();
 		}

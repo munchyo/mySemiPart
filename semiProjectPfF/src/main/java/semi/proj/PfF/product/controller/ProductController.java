@@ -29,22 +29,22 @@ public class ProductController {
 			currentPage = 1;
 		}
 		
-		if(productType.getproductType2() == null) productType.setProductType2("ÀüÃ¼");
+		if(productType.getproductType2() == null) productType.setProductType2("ï¿½ï¿½Ã¼");
 		
-		int listCount = pService.selectCountPrList(productType); // »óÇ°ÃÑ°¹¼ö
+		int listCount = pService.selectCountPrList(productType); // ìƒí’ˆì´ê°¯ìˆ˜
 		
-		ArrayList<String> ProductType2 = pService.selectType2(productType);	// productType2 ÃßÃâ
+		ArrayList<String> ProductType2 = pService.selectType2(productType);	// productType2 ì¶”ì¶œ
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 20); // => ÆäÀÌÁö³×ÀÌ¼Ç
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 20); // => í˜ì´ì§€ë„¤ì´ì…˜
 		
-		ArrayList<Product> list = pService.selectPrList(pi, productType); // => ÀüÃ¼ »óÇ°¸®½ºÆ®»Ì¾Æ¿À±â
-		// »óÇ° type2, ´ëÇ¥»çÁø, productName, productPrice
+		ArrayList<Product> list = pService.selectPrList(pi, productType); // => ì „ì²´ ìƒí’ˆë¦¬ìŠ¤íŠ¸ë½‘ì•„ì˜¤ê¸°
+		// ï¿½ï¿½Ç° type2, ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½, productName, productPrice
 		
-		model.addAttribute("productType", productType.getProductType());	// ¾î¶²Ä«Å×°í¸®¸¦ º¼Áö À§ÇÔ
-		model.addAttribute("productType2", productType.getproductType2());	// ¾î¶²Ä«Å×°í¸®¸¦ º¼Áö À§ÇÔ
-		model.addAttribute("productType2List", ProductType2);	// Ä«Å×°í¸®2 Á¶È¸ÇÏ±âÀ§ÇÔ
-		model.addAttribute("pi", pi);	// ÆäÀÌÁö³×ÀÌ¼Ç
-		model.addAttribute("list", list);	// ÆäÀÌÁö³×ÀÌ¼ÇµÈ ¸®½ºÆ®
+		model.addAttribute("productType", productType.getProductType());	// ì–´ë–¤ì¹´í…Œê³ ë¦¬ë¥¼ ë³¼ì§€ ìœ„í•¨
+		model.addAttribute("productType2", productType.getproductType2());	// ì–´ë–¤ì¹´í…Œê³ ë¦¬ë¥¼ ë³¼ì§€ ìœ„í•¨
+		model.addAttribute("productType2List", ProductType2);	// ì¹´í…Œê³ ë¦¬2 ì¡°íšŒí•˜ê¸°ìœ„í•¨
+		model.addAttribute("pi", pi);	// í˜ì´ì§€ë„¤ì´ì…˜
+		model.addAttribute("list", list);	// í˜ì´ì§€ë„¤ì´ì…˜ëœ ë¦¬ìŠ¤íŠ¸
 		return "productList";
 	}
 }
