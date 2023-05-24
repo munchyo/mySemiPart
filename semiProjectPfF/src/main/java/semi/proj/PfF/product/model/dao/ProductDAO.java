@@ -13,7 +13,7 @@ import semi.proj.PfF.product.model.vo.Product;
 public class ProductDAO {
 
 	public int selectCountPrList(SqlSessionTemplate sqlSession, Product productType) {
-		if(productType.getproductType2() == null || productType.getproductType2().equals("ÀüÃ¼")) {
+		if(productType.getproductType2() == null || productType.getproductType2().equals("ì „ì²´")) {
 			return sqlSession.selectOne("productMapper.selectCountPrList", productType);
 		} else {
 			return sqlSession.selectOne("productMapper.selectCountPr2List", productType);
@@ -23,7 +23,7 @@ public class ProductDAO {
 	public ArrayList<Product> selectPrList(SqlSessionTemplate sqlSession, PageInfo pi, Product productType) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		if(productType.getproductType2() == null || productType.getproductType2().equals("ÀüÃ¼")) {
+		if(productType.getproductType2() == null || productType.getproductType2().equals("ì „ì²´")) {
 			return (ArrayList)sqlSession.selectList("productMapper.selectPrList", productType, rowBounds);
 		} else {
 			return (ArrayList)sqlSession.selectList("productMapper.selectPr2List", productType, rowBounds);
